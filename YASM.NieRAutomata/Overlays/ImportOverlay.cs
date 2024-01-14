@@ -32,7 +32,7 @@ public partial class MainOverlay
             {
                 var fileInfo = new FileInfo(savePath);
 
-                if (ButtonColored(TitleColor, "Import"))
+                if (ButtonColored(TitleColor, $"Import##{i}"))
                 {
                     BaseSaveInfo = SaveInfoManager.ExtractFromSave(i);
 
