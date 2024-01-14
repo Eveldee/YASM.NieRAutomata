@@ -17,9 +17,10 @@ public static class SaveInfoManager
     public const int InfoControlsOffset = 235604;
     public const int InfoControlsLength = 172;
 
-    private static readonly JsonSerializerOptions _serializerOptions = new JsonSerializerOptions
+    private static readonly JsonSerializerOptions _serializerOptions = new()
     {
-        WriteIndented = true
+        WriteIndented = true,
+        TypeInfoResolver = SourceGenerationContext.Default
     };
 
     public static bool TryLoadFromSettings([NotNullWhen(true)] out BaseSaveInfo? saveInfo)

@@ -502,3 +502,4 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp,dotnetcore,rider,visualstudiocode
 .idea/.idea.YASM.NieRAutomata/.idea
+YASM.NieRAutomata/deploy.fish

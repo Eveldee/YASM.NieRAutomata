@@ -41,7 +41,7 @@ public partial class MainOverlay() : Overlay("YASM")
 
     private void DisplayOverlay()
     {
-        ImGui.Begin("YASM", ref _displayMainOverlay, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.MenuBar);
+        ImGui.Begin("YASM", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.MenuBar);
 
         ImGui.SetWindowSize(new(-1, -1));
 
