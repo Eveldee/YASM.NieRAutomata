@@ -15,17 +15,27 @@ public partial class MainOverlay
         ImGui.SameLine();
         ImGui.TextColored(InfoColor, "saves available.");
 
-        ImGui.Separator();
-
-        ImGui.TextColored(WarningColor, "Remember that you need to create a save in each save slot before being able to use it. If you load a save and it's not visible in-game, first create a save in the slot and then retry.");
-
-        ImGui.Separator();
         ImGui.NewLine();
 
-        if (ButtonColored(TitleColor, "Refresh Saves"))
+        if (ButtonColored(InfoColor, "Refresh Saves"))
         {
             CustomSavesManager.LoadCustomSaves();
         }
+        ImGui.SameLine();
+        WithDisabled(_isExporting, () =>
+        {
+            if (ButtonColored(TitleColor, "Import from zip"))
+            {
+                Task.Run(() =>
+                {
+                    _isExporting = true;
+
+                    CustomSavesManager.ImportFromZip();
+
+                    _isExporting = false;
+                });
+            }
+        });
 
         ImGui.NewLine();
 

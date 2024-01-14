@@ -1,4 +1,6 @@
-﻿using YASM.NieRAutomata.Utils;
+﻿using System.IO.Compression;
+using NativeFileDialogSharp;
+using YASM.NieRAutomata.Utils;
 
 namespace YASM.NieRAutomata.SaveManager;
 
@@ -75,6 +77,45 @@ public class CustomSavesManager
         }
 
         File.Copy(gameSavePath, Path.Combine(targetDirectory, $"{newSaveName}.dat"), true);
+
+        LoadCustomSaves();
+    }
+
+    public void ImportFromZip()
+    {
+        var result = Dialog.FileOpen("zip");
+
+        if (!result.IsOk)
+        {
+            return;
+        }
+
+        var archivePath = result.Path;
+
+        // Check file
+        if (!File.Exists(archivePath))
+        {
+            return;
+        }
+
+        // Open archive
+        var groupName = Path.GetFileNameWithoutExtension(archivePath);
+        var targetDirectory = Path.Combine(PathUtils.CustomSavesPath, groupName);
+
+        Directory.CreateDirectory(targetDirectory);
+
+        using var archive = ZipFile.OpenRead(archivePath);
+
+        foreach (var entry in archive.Entries)
+        {
+            // Extract only saves
+            if (!entry.Name.EndsWith(".dat"))
+            {
+                continue;
+            }
+
+            entry.ExtractToFile(Path.Combine(targetDirectory, entry.Name));
+        }
 
         LoadCustomSaves();
     }

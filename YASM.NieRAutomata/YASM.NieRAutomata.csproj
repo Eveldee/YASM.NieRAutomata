@@ -12,6 +12,7 @@
     <ItemGroup>
         <PackageReference Include="ClickableTransparentOverlay" Version="9.3.0"/>
         <PackageReference Include="Humanizer" Version="2.14.1" />
+        <PackageReference Include="NativeFileDialogSharp" Version="0.6.0-alpha" />
     </ItemGroup>
 
 </Project>

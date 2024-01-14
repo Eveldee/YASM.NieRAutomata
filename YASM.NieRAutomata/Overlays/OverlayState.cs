@@ -11,4 +11,5 @@ public partial class MainOverlay
 
     private string _newSaveName = "";
     private string _newSaveGroup = "";
+    private bool _isExporting;
 }
