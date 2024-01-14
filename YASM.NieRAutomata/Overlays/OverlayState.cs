@@ -1,4 +1,5 @@
-﻿using YASM.NieRAutomata.SaveManager;
+﻿using GlobalHotKeys;
+using YASM.NieRAutomata.SaveManager;
 
 namespace YASM.NieRAutomata.Overlays;
 
@@ -6,6 +7,8 @@ public partial class MainOverlay
 {
     public BaseSaveInfo? BaseSaveInfo { get; set; }
     public CustomSavesManager CustomSavesManager { get; } = new();
+
+    private HotKeyManager _hotKeyManager = new();
 
     private bool _focusManagerNext = false;
 

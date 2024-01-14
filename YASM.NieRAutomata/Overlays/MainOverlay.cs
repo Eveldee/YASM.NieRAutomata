@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using ClickableTransparentOverlay;
+using GlobalHotKeys;
+using GlobalHotKeys.Native.Types;
 using ImGuiNET;
 using YASM.NieRAutomata.Utils;
 
@@ -13,10 +15,20 @@ public partial class MainOverlay() : Overlay("YASM")
     {
         VSync = true;
 
+        // Fix window size
         var windowHandle = WindowUtils.FindWindow(null!, "YASM");
         WindowUtils.ShowWindow(windowHandle, WindowUtils.SW_SHOWMAXIMIZED);
 
+        // Global toggle shortcut
+        _hotKeyManager.HotKeyPressed.Subscribe(ShortcutPressed);
+        _hotKeyManager.Register(VirtualKeyCode.VK_BACK, Modifiers.Control);
+
         return Task.CompletedTask;
+    }
+
+    private void ShortcutPressed(HotKey hotKey)
+    {
+        _displayMainOverlay = !_displayMainOverlay;
     }
 
     protected override void Render()
@@ -25,17 +37,23 @@ public partial class MainOverlay() : Overlay("YASM")
         {
             DisplayOverlay();
         }
-        else
-        {
-            Environment.Exit(0);
-        }
     }
 
     private void DisplayOverlay()
     {
-        ImGui.Begin("YASM", ref _displayMainOverlay, ImGuiWindowFlags.NoResize);
+        ImGui.Begin("YASM", ref _displayMainOverlay, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.MenuBar);
 
         ImGui.SetWindowSize(new(-1, -1));
+
+        if (ImGui.BeginMenuBar())
+        {
+            if (ImGui.MenuItem("Quit"))
+            {
+                Environment.Exit(0);
+            }
+
+            ImGui.EndMenuBar();
+        }
 
         ImGui.TextColored(TitleColor, $"Welcome to YASM version v{Assembly.GetExecutingAssembly().GetName().Version}, a NieR: Automata save manager.");
 
@@ -48,12 +66,12 @@ public partial class MainOverlay() : Overlay("YASM")
             {
                 if (_focusManagerNext)
                 {
-                    TabItem("Saves Loader", ImGuiTabItemFlags.SetSelected, DisplayManager);
+                    TabItem("Saves Loader", ImGuiTabItemFlags.SetSelected, DisplayLoader);
                     _focusManagerNext = false;
                 }
                 else
                 {
-                    TabItem("Saves Loader", DisplayManager);
+                    TabItem("Saves Loader", DisplayLoader);
                 }
             }
 
