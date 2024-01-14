@@ -8,4 +8,7 @@ public partial class MainOverlay
     public CustomSavesManager CustomSavesManager { get; } = new();
 
     private bool _focusManagerNext = false;
+
+    private string _newSaveName = "";
+    private string _newSaveGroup = "";
 }

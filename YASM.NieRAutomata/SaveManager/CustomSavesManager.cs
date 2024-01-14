@@ -52,4 +52,30 @@ public class CustomSavesManager
         // Override existing save
         File.WriteAllBytes(PathUtils.GetGameSaveSlotPath(slotIndex), data);
     }
+
+    public void CreateSave(string newSaveName, string newSaveGroup, int slotIndex)
+    {
+        if (string.IsNullOrWhiteSpace(newSaveName) || string.IsNullOrEmpty(newSaveGroup))
+        {
+            return;
+        }
+
+        var gameSavePath = PathUtils.GetGameSaveSlotPath(slotIndex);
+
+        if (!File.Exists(gameSavePath))
+        {
+            return;
+        }
+
+        var targetDirectory = Path.Combine(PathUtils.CustomSavesPath, newSaveGroup);
+
+        if (!Directory.Exists(targetDirectory))
+        {
+            Directory.CreateDirectory(targetDirectory);
+        }
+
+        File.Copy(gameSavePath, Path.Combine(targetDirectory, $"{newSaveName}.dat"), true);
+
+        LoadCustomSaves();
+    }
 }
