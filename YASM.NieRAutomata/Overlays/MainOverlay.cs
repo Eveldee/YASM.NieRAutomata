@@ -48,12 +48,12 @@ public partial class MainOverlay() : Overlay("YASM")
             {
                 if (_focusManagerNext)
                 {
-                    TabItem("Saves Manager", ImGuiTabItemFlags.SetSelected, DisplayManager);
+                    TabItem("Saves Loader", ImGuiTabItemFlags.SetSelected, DisplayManager);
                     _focusManagerNext = false;
                 }
                 else
                 {
-                    TabItem("Saves Manager", DisplayManager);
+                    TabItem("Saves Loader", DisplayManager);
                 }
             }
 
