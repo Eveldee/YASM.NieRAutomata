@@ -6,7 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-        <Version>0.0.1</Version>
+        <Version>0.0.2</Version>
         <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
         <ApplicationIcon>Icon.ico</ApplicationIcon>
     </PropertyGroup>
@@ -16,6 +16,7 @@
         <PackageReference Include="GlobalHotKeys.Windows" Version="0.1.0" />
         <PackageReference Include="Humanizer" Version="2.14.1" />
         <PackageReference Include="NativeFileDialogSharp" Version="0.6.0-alpha" />
+        <PackageReference Include="SharpCompress" Version="0.36.0" />
     </ItemGroup>
 
 </Project>

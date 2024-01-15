@@ -24,7 +24,7 @@ public partial class MainOverlay
         ImGui.SameLine();
         WithDisabled(_isExporting, () =>
         {
-            if (ButtonColored(TitleColor, "Import from zip"))
+            if (ButtonColored(TitleColor, "Import from archive"))
             {
                 Task.Run(() =>
                 {
@@ -66,6 +66,11 @@ public partial class MainOverlay
         {
             TabBar("SavesLoadTabBar", () =>
             {
+                if (!CustomSavesManager.SaveGroups.Any())
+                {
+                    ImGui.Text("No saves available, start by creating or importing one.");
+                }
+
                 foreach (var saveGroup in CustomSavesManager.SaveGroups)
                 {
                     TabItem(saveGroup.Key, () =>

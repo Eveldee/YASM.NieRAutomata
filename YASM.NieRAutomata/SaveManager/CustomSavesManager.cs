@@ -1,5 +1,6 @@
 ﻿using System.IO.Compression;
 using NativeFileDialogSharp;
+using SharpCompress.Readers;
 using YASM.NieRAutomata.Utils;
 
 namespace YASM.NieRAutomata.SaveManager;
@@ -83,7 +84,7 @@ public class CustomSavesManager
 
     public void ImportFromZip()
     {
-        var result = Dialog.FileOpen("zip");
+        var result = Dialog.FileOpen("zip,rar");
 
         if (!result.IsOk)
         {
@@ -104,17 +105,18 @@ public class CustomSavesManager
 
         Directory.CreateDirectory(targetDirectory);
 
-        using var archive = ZipFile.OpenRead(archivePath);
+        using var archiveStream = File.OpenRead(archivePath);
+        using var reader = ReaderFactory.Open(archiveStream);
 
-        foreach (var entry in archive.Entries)
+        while (reader.MoveToNextEntry())
         {
-            // Extract only saves
-            if (!entry.Name.EndsWith(".dat"))
+            var entry = reader.Entry;
+            if (entry.IsDirectory || entry.Size != SaveLength)
             {
                 continue;
             }
 
-            entry.ExtractToFile(Path.Combine(targetDirectory, entry.Name));
+            reader.WriteEntryToDirectory(targetDirectory);
         }
 
         LoadCustomSaves();
