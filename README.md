@@ -32,3 +32,16 @@ Once you have some saves to load, click on any `Slot` button to load a save in t
 > Note that it is possible to load a save even while the game is running but it is possible that the save slot preview won't be updated directly. Even if it happens, the correct save will still be loaded.
 
 You can hide/toggle **YASM** by pressing the `ctrl + backspace` shortcut. Click the `Quit` button in the top-left corner to correctly close **YASM**.
+
+## Used libraries
+
+This tool couldn't be made without these awesome libraries and tools:
+- [ImGui](https://github.com/ocornut/imgui) - *licensed under the MIT license*
+- [ClickableTransparentOverlay](https://github.com/zaafar/ClickableTransparentOverlay) - *licensed under the Apache-2.0 license*
+- [Humanizer](https://github.com/Humanizr/Humanizer) - *licensed under the MIT license*
+- [NativeFileDialogSharp](https://github.com/milleniumbug/NativeFileDialogSharp) - *licensed under the Zlib license*
+- [SharpCompress](https://github.com/adamhathcock/sharpcompress) - *licensed under the MIT license*
+
+## Licence
+
+*This software is licensed under the [MIT license](LICENSE), you can modify and redistribute it freely till you respect the respective [Used libraries](#used-libraries) licenses*
