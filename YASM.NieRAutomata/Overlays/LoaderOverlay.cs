@@ -75,7 +75,7 @@ public partial class MainOverlay
                 {
                     TabItem(saveGroup.Key, () =>
                     {
-                        Child($"##{saveGroup.Key}", new Vector2(-1, 400), ImGuiChildFlags.Border, () =>
+                        Child($"##{saveGroup.Key}", new Vector2(-1, YasmOptions.AllowResize ? -1 : 400), ImGuiChildFlags.Border, () =>
                         {
                             foreach (var customSave in saveGroup)
                             {

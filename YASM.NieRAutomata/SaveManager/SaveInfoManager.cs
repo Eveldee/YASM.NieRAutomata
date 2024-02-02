@@ -17,12 +17,6 @@ public static class SaveInfoManager
     public const int InfoControlsOffset = 235604;
     public const int InfoControlsLength = 172;
 
-    private static readonly JsonSerializerOptions _serializerOptions = new()
-    {
-        WriteIndented = true,
-        TypeInfoResolver = SourceGenerationContext.Default
-    };
-
     public static bool TryLoadFromSettings([NotNullWhen(true)] out BaseSaveInfo? saveInfo)
     {
         if (!File.Exists(BaseSaveInfoPath))
@@ -31,13 +25,13 @@ public static class SaveInfoManager
             return false;
         }
 
-        saveInfo = JsonSerializer.Deserialize<BaseSaveInfo>(File.ReadAllText(BaseSaveInfoPath), _serializerOptions);
+        saveInfo = JsonSerializer.Deserialize<BaseSaveInfo>(File.ReadAllText(BaseSaveInfoPath), SerializationUtils.SerializerOptions);
         return saveInfo is not null;
     }
 
     public static void SaveToSettings(BaseSaveInfo saveInfo)
     {
-        File.WriteAllText(BaseSaveInfoPath, JsonSerializer.Serialize(saveInfo, _serializerOptions));
+        File.WriteAllText(BaseSaveInfoPath, JsonSerializer.Serialize(saveInfo, SerializationUtils.SerializerOptions));
     }
 
     public static BaseSaveInfo ExtractFromSave(Span<byte> save)

@@ -41,15 +41,31 @@ public partial class MainOverlay() : Overlay("YASM")
 
     private void DisplayOverlay()
     {
-        ImGui.Begin("YASM", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.MenuBar);
+        ImGui.Begin("YASM", ImGuiWindowFlags.MenuBar);
 
-        ImGui.SetWindowSize(new(-1, -1));
+        if (!YasmOptions.AllowResize)
+        {
+            ImGui.SetWindowSize(new(-1, -1));
+        }
 
         if (ImGui.BeginMenuBar())
         {
             if (ImGui.MenuItem("Quit"))
             {
+                YasmOptions.Save();
+
+                ImGui.SaveIniSettingsToDisk("imgui.ini");
                 Environment.Exit(0);
+            }
+
+            if (ImGui.BeginMenu("Options"))
+            {
+                if (ImGui.MenuItem("Allow Resize", null, ref YasmOptions.AllowResize))
+                {
+
+                }
+
+                ImGui.EndMenu();
             }
 
             ImGui.EndMenuBar();

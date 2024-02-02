@@ -6,6 +6,8 @@ public static class PathUtils
 {
     public static readonly string BasePath = Path.GetDirectoryName(AppContext.BaseDirectory)!;
 
+    public static readonly string OptionsPath = Path.Combine(BasePath, "Options.json");
+
     public static readonly string GameSavePath =
         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "My Games", "NieR_Automata");
 
