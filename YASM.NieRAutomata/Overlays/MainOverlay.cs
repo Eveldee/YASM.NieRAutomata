@@ -32,7 +32,7 @@ public partial class MainOverlay() : Overlay("YASM")
                               (YasmOptions.ShortcutShift ? Modifiers.Shift   : 0) |
                               (YasmOptions.ShortcutAlt   ? Modifiers.Alt     : 0);
 
-        VirtualKeyCode key = Enum.Parse<VirtualKeyCode>(ShortcutUtils.KeyNames[YasmOptions.ShortcutKey]);
+        VirtualKeyCode key = Enum.Parse<VirtualKeyCode>(ShortcutUtils.KeyNames[YasmOptions.ShortcutKeyNameIndex]);
 
         // Unregister all shortcut and register updated one
         _shortcutRegistration?.Dispose();
@@ -95,7 +95,7 @@ public partial class MainOverlay() : Overlay("YASM")
                     RegisterHotkey();
                 }
 
-                if (ImGui.Combo("Key", ref YasmOptions.ShortcutKey, ShortcutUtils.KeyNames, ShortcutUtils.KeyNames.Length))
+                if (ImGui.Combo("Key", ref YasmOptions.ShortcutKeyNameIndex, ShortcutUtils.KeyNames, ShortcutUtils.KeyNames.Length))
                 {
                     RegisterHotkey();
                 }

@@ -7,7 +7,7 @@ namespace YASM.NieRAutomata.Utils;
 [method: JsonConstructor]
 public class YasmOptions(
     bool allowResize = false,
-    int shortcutKey = (int)VirtualKeyCode.VK_BACK,
+    int shortcutKeyNameIndex = 6, // VK_BACK
     bool shortcutCtrl = true,
     bool shortcutShift = false,
     bool shortcutAlt = false
@@ -25,8 +25,8 @@ public class YasmOptions(
     private bool _shortcutAlt = shortcutAlt;
     public ref bool ShortcutAlt => ref _shortcutAlt;
 
-    private int _shortcutKey = shortcutKey;
-    public ref int ShortcutKey => ref _shortcutKey;
+    private int _shortcutKeyNameIndex = shortcutKeyNameIndex;
+    public ref int ShortcutKeyNameIndex => ref _shortcutKeyNameIndex;
 
     public void Save()
     {
