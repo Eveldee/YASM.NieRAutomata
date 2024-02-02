@@ -1,6 +1,4 @@
-﻿using System.Reflection;
-
-namespace YASM.NieRAutomata.Utils;
+﻿namespace YASM.NieRAutomata.Utils;
 
 public static class PathUtils
 {

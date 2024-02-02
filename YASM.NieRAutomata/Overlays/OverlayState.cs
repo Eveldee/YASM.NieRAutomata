@@ -11,6 +11,7 @@ public partial class MainOverlay
     public YasmOptions YasmOptions { get; set; } = new();
 
     private readonly HotKeyManager _hotKeyManager = new();
+    private IRegistration? _shortcutRegistration;
 
     private bool _focusManagerNext = false;
 

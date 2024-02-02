@@ -21,9 +21,22 @@ public partial class MainOverlay() : Overlay("YASM")
 
         // Global toggle shortcut
         _hotKeyManager.HotKeyPressed.Subscribe(ShortcutPressed);
-        _hotKeyManager.Register(VirtualKeyCode.VK_BACK, Modifiers.Control);
+        RegisterHotkey();
 
         return Task.CompletedTask;
+    }
+
+    private void RegisterHotkey()
+    {
+        Modifiers modifiers = (YasmOptions.ShortcutCtrl  ? Modifiers.Control : 0) |
+                              (YasmOptions.ShortcutShift ? Modifiers.Shift   : 0) |
+                              (YasmOptions.ShortcutAlt   ? Modifiers.Alt     : 0);
+
+        VirtualKeyCode key = Enum.Parse<VirtualKeyCode>(ShortcutUtils.KeyNames[YasmOptions.ShortcutKey]);
+
+        // Unregister all shortcut and register updated one
+        _shortcutRegistration?.Dispose();
+         _shortcutRegistration = _hotKeyManager.Register(key, modifiers);
     }
 
     private void ShortcutPressed(HotKey hotKey)
@@ -60,9 +73,31 @@ public partial class MainOverlay() : Overlay("YASM")
 
             if (ImGui.BeginMenu("Options"))
             {
-                if (ImGui.MenuItem("Allow Resize", null, ref YasmOptions.AllowResize))
-                {
+                ImGui.SeparatorText("General");
 
+                ImGui.MenuItem("Allow Resize", null, ref YasmOptions.AllowResize);
+
+                ImGui.NewLine();
+                ImGui.SeparatorText("Toggle shortcut");
+
+                if (ImGui.Checkbox("Ctrl", ref YasmOptions.ShortcutCtrl))
+                {
+                    RegisterHotkey();
+                }
+                ImGui.SameLine();
+                if (ImGui.Checkbox("Shift", ref YasmOptions.ShortcutShift))
+                {
+                    RegisterHotkey();
+                }
+                ImGui.SameLine();
+                if (ImGui.Checkbox("Alt", ref YasmOptions.ShortcutAlt))
+                {
+                    RegisterHotkey();
+                }
+
+                if (ImGui.Combo("Key", ref YasmOptions.ShortcutKey, ShortcutUtils.KeyNames, ShortcutUtils.KeyNames.Length))
+                {
+                    RegisterHotkey();
                 }
 
                 ImGui.EndMenu();
@@ -72,7 +107,6 @@ public partial class MainOverlay() : Overlay("YASM")
         }
 
         ImGui.TextColored(TitleColor, $"Welcome to YASM version v{Assembly.GetExecutingAssembly().GetName().Version}, a NieR: Automata save manager.");
-
         ImGui.Separator();
 
         TabBar("MainTabBar", ImGuiTabBarFlags.AutoSelectNewTabs, () =>
